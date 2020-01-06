@@ -8,6 +8,18 @@ body {
   background-color: #2C2C2C;
 }
 
+.btn, .btn:focus {
+  background-color: #4094ff;
+}
+
+.btn:hover {
+  background-color: #0047a2;
+}
+
+.active {
+  color: #4094ff !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
