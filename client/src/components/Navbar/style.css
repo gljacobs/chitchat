@@ -1,0 +1,18 @@
+#navbar {
+    position: fixed;
+    background: white;
+    z-index: 1;
+}
+
+p {
+    float: right;
+    color: gray;
+}
+
+nav a {
+    padding: 0 1rem;
+    font-weight: bold;
+    color: gray;
+    font-size: 2rem;
+}
+
