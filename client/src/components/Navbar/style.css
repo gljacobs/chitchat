@@ -4,9 +4,13 @@
     background-color: #1f1f1f;
 }
 
-p {
+nav p {
     float: right;
     color: #FFAB40;
+}
+
+nav img {
+    height: 30px;
 }
 
 nav a {
