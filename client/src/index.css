@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #2C2C2C;
+  /* background-image:url("https://media0.giphy.com/media/jNCT0DtwX6GFG/source.gif"); */
 }
 
 .btn, .btn:focus {
