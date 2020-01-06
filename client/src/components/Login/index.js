@@ -42,7 +42,7 @@ class Login extends React.Component {
                 <div className="col s12 m12">
                     <div className="card">
                         <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">Login Here</span>
+                            <span className="card-title activator">Login Here</span>
                             <div className="row">
                                 <form id="login" className="col s12 ">
                                     <div className="row">
