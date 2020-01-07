@@ -19,6 +19,30 @@ body {
 
 .active {
   color: #4094ff !important;
+} 
+
+/* label focus color */
+.input-field input:focus + label {
+  color: #4094ff !important;
+}
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #4094ff !important;
+  box-shadow: 0 1px 0 0 #4094ff !important;
+}
+/* valid color */
+.input-field input.valid {
+  border-bottom: 1px solid #4094ff !important;
+  box-shadow: 0 1px 0 0 #4094ff !important;
+}
+/* invalid color */
+.input-field input.invalid {
+  border-bottom: 1px solid #4094ff;
+  box-shadow: 0 1px 0 0 #4094ff;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #4094ff;
 }
 
 code {

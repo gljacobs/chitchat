@@ -47,7 +47,7 @@ class Login extends React.Component {
                                 <form id="login" className="col s12 ">
                                     <div className="row">
                                         <div className="input-field col s8 offset-s2">
-                                            <input id="namein" type="text" className="validate" name="email" value={this.state.email} onChange={this.handleChange} />
+                                            <input id="namein" type="email" className="validate" name="email" value={this.state.email} onChange={this.handleChange} />
                                             <label htmlFor="namein">Email</label>
                                         </div>
                                     </div>
