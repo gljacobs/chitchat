@@ -9,23 +9,41 @@ import Signup from './components/Signup';
 import Chat from './components/Chat';
 
 var socket;
-if (window.location.pathname === "/chat") {
+if(window.location.pathname === "/chat") {
   socket = io('http://localhost:3001/chat', { transports: ['websocket'] });
 }
+else if(window.location.pathname !== "/chat") {
+  localStorage.clear();
+}
 
-function App() {
-  return (
-    <Router>
+class App extends React.Component {
+  state = {
+    user: "",
+  }
+
+  componentDidMount() {
+    this.setState({user: localStorage.getItem("user")});
+  }
+
+  render() {
+    return (
       <div className="App">
-        <Navbar />
-        <Wrapper>
-          <Route path="/" component={Login} exact={true}/>
-          <Route path="/signup" component={Signup} exact={true}/>
-          <Route path="/chat" component={Chat} exact={true}/>
-        </Wrapper>
+        <Navbar user={this.state.user} />
+        <Router>
+          <Wrapper>
+            <Route path="/" component={props => <Login {...props} 
+              getUser={(user) => { 
+                this.setState({user: user}); 
+                localStorage.setItem('user', this.state.user);
+              }} 
+            />} exact={true} />
+            <Route path="/signup" component={Signup} exact={true} />
+            <Route path="/chat" component={props => <Chat {...props} user={this.state.user} />} exact={true} />
+          </Wrapper>
+        </Router>
       </div>
-    </Router>
-  );
+    );
+  }
 }
 
 export default App;

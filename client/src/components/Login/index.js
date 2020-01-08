@@ -6,7 +6,6 @@ import API from '../../utils/API';
 
 class Login extends React.Component {
     state = {
-        user: "",
         email: "",
         password: "",
     }
@@ -27,12 +26,13 @@ class Login extends React.Component {
         API.getUser(this.state.email, this.state.password)
             .then((user) => {
                 console.log(user);
-                window.location.href = "/chat";
+                this.props.getUser(user[0].name);
             }).catch(err => {
                 console.log(err)
                 alert("Invalid email or password...")
             })
             .then(() => {
+                window.location.href = "/chat";
                 this.setState({ email: "", password: "" });
             });
     }

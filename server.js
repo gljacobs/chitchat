@@ -45,6 +45,7 @@ db.sequelize.sync().then(() => {
 
   io.on("connection", (socket) => {
     console.log("Socket connection made:", socket.id);
+    
     socket.on("disconnect", () => {
       console.log("Socket disconnnected");
     });
