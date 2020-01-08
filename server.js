@@ -1,4 +1,6 @@
-const express =  require('express');
+const express = require('express');
+const socket = require('socket.io');
+const socketioJwt = require('socketio-jwt');
 const path = require("path");
 const routes = require("./routes");
 const db = require("./database/models");
@@ -27,7 +29,33 @@ app.get("*", (req, res) => {
 // Starts the server to begin listening and sync sequelize models
 // =============================================================
 db.sequelize.sync().then(() => {
-    app.listen(PORT, () => {
-      console.log(`App listening on PORT ${PORT}`);
+  const server = app.listen(PORT, () => {
+    console.log(`App listening on PORT ${PORT}`);
+  });
+
+  //socket setup
+  var io = socket(server, {
+    pingTimeout: 60000
+  });
+
+  // io.use(socketioJwt.authorize({
+  //   secret: 'your secret or public key',
+  //   handshake: true
+  // }));
+
+  io.on("connection", (socket) => {
+    console.log("Socket connection made:", socket.id);
+    socket.on("disconnect", () => {
+      console.log("Socket disconnnected");
     });
+    //handle chat
+    // socket.on("chat", (data) => {
+    //     io.sockets.emit("chat", data)
+    // });
+    // //handle typing
+    // socket.on("typing", (data) => {
+    //     socket.broadcast.emit("typing", data)
+    // });
   })
+})
+

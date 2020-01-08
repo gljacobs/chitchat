@@ -3,6 +3,7 @@ import './style.css';
 // import testdata from '../../testdata.json'
 import API from '../../utils/API';
 
+
 class Login extends React.Component {
     state = {
         user: "",
@@ -26,7 +27,7 @@ class Login extends React.Component {
         API.getUser(this.state.email, this.state.password)
             .then((user) => {
                 console.log(user);
-                alert("Hello " + user[0].name + "!");
+                window.location.href = "/chat";
             }).catch(err => {
                 console.log(err)
                 alert("Invalid email or password...")
