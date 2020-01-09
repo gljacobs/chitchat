@@ -30,7 +30,6 @@ class App extends React.Component {
       <div className="App">
         <Navbar user={this.state.user} />
         <Router>
-          <Wrapper>
             <Route path="/" component={props => <Login {...props} 
               getUser={(user) => { 
                 this.setState({user: user}); 
@@ -39,7 +38,6 @@ class App extends React.Component {
             />} exact={true} />
             <Route path="/signup" component={Signup} exact={true} />
             <Route path="/chat" component={props => <Chat {...props} user={this.state.user} />} exact={true} />
-          </Wrapper>
         </Router>
       </div>
     );
