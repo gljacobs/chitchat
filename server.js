@@ -51,12 +51,12 @@ db.sequelize.sync().then(() => {
     });
     //handle chat
     socket.on("chat", (data) => {
-      console.log("Chat recieved");
+      console.log("Chat recieved ", data.user);
         io.sockets.emit("chat", data)
     });
 
     socket.on("logged", (data) => {
-      console.log("User logged in..");
+      console.log("User logged in.. ", data.user);
         io.sockets.emit("logged", data)
     });
 

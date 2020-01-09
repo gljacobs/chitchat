@@ -9,10 +9,6 @@ class Login extends React.Component {
         email: "",
         password: "",
     }
-    componentDidMount() {
-        // API.createUser("Gabe Jaco", "gj@gmail.com", "password");
-        // API.createUser("Mariah Jaco", "mj@gmail.com", "password");
-    }
 
     handleChange = (event) => {
         let value = event.target.value;
@@ -25,7 +21,6 @@ class Login extends React.Component {
         event.preventDefault();
         API.getUser(this.state.email, this.state.password)
             .then((user) => {
-                console.log(user);
                 this.props.getUser(user[0].name);
                 window.location.href = "/chat";
             }).catch(err => {

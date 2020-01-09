@@ -20,7 +20,6 @@ class Chat extends React.Component {
         socket.on("chat", (data) => {
             this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat], msg: "" });
             //feedback.html("");
-            console.log("Hi");
         });
     }
 
