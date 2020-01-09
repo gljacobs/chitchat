@@ -26,14 +26,14 @@ class App extends React.Component {
       <div className="App">
         <Navbar user={this.state.user} />
         <Router>
-            <Route path="/" component={props => <Login {...props} 
+            <Route path="/" render={props => <Login {...props} 
               getUser={(user) => { 
                 this.setState({user: user}); 
                 localStorage.setItem('user', this.state.user);
               }} 
             />} exact={true} />
             <Route path="/signup" component={Signup} exact={true} />
-            <Route path="/chat" component={props => <Chat {...props} user={this.state.user} />} exact={true} />
+            <Route path="/chat" render={props => <Chat {...props} user={this.state.user} />} exact={true} />
         </Router>
       </div>
     );

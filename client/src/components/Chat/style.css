@@ -75,20 +75,28 @@ div#chat-content {
 }
 
 ul#nav-mobile {
-    z-index: -1;
+    z-index: 0;
 }
 
 .input-field.col.m10 {
     margin-bottom: 0;
 }
 
-.input-field input {
+#chat .input-field input {
     border-bottom: 1px solid white !important;
     color: white;
 }
   
-.input-field label {
+#chat .input-field label {
     color: white;
+}
+
+.sidenav i.material-icons {
+    color: lawngreen !important;
+}
+
+.sidenav li a {
+    font-weight: bold;
 }
 
 @media screen and (max-width: 992px) {

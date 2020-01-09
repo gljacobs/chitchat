@@ -27,12 +27,12 @@ class Login extends React.Component {
             .then((user) => {
                 console.log(user);
                 this.props.getUser(user[0].name);
+                window.location.href = "/chat";
             }).catch(err => {
                 console.log(err)
                 alert("Invalid email or password...")
             })
             .then(() => {
-                window.location.href = "/chat";
                 this.setState({ email: "", password: "" });
             });
     }

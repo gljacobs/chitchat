@@ -3,15 +3,38 @@ import io from 'socket.io-client';
 import './style.css';
 
 var socket;
-if(window.location.pathname === "/chat") {
-  socket = io('http://localhost:3001/chat', { transports: ['websocket'] });
-}
-
 
 class Chat extends React.Component {
+
     state = {
         msg: "",
-        chat: []
+        chat: [],
+        users: [],
+        logged: false
+    }
+
+    componentDidMount() {
+
+        socket = io('http://localhost:3001');
+
+        socket.on("chat", (data) => {
+            this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat], msg: "" });
+            //feedback.html("");
+            console.log("Hi");
+        });
+    }
+
+    componentDidUpdate() {
+
+        if(!this.state.logged) {
+            socket.emit("logged", {
+                user: this.props.user,
+            });
+
+            socket.on("logged", (data) => {
+                this.setState({ users: [...this.state.users, data.user], logged: true })
+            })
+        }
     }
 
     handleChange = (event) => {
@@ -24,15 +47,12 @@ class Chat extends React.Component {
     handleChat = (event) => {
         event.preventDefault();
         if (this.state.msg) {
-            // socket.emit("chat", {
-            //     msg: this.state.msg,
-            //     user: this.props.user,
-            // });
-            this.setState({
-                chat: [this.state.msg, ...this.state.chat],
-                msg: ""
-            })
+            socket.emit("chat", {
+                msg: this.state.msg,
+                user: this.props.user,
+            });
         }
+
     }
 
     render() {
@@ -42,15 +62,22 @@ class Chat extends React.Component {
                     <li><div className="user-view">
                         <div className="background">
                         </div>
-                        <a href="#user"></a>
-                        <a href="#name"><span className="white-text name">John Doe</span></a>
-                        <a href="#email"><span className="white-text email">jdandturk@gmail.com</span></a>
+                        <a href="#"></a>
+                        <a href="#"><span className="white-text name">John Doe</span></a>
+                        <a href="#"><span className="white-text email">jdandturk@gmail.com</span></a>
                     </div></li>
-                    <li><a href="#!"><i className="material-icons">cloud</i>First Link With Icon</a></li>
-                    <li><a href="#!">Second Link</a></li>
-                    <li><div className="divider"></div></li>
-                    <li><a className="subheader">Subheader</a></li>
-                    <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
+                    {
+                        this.state.users.map((user) => {
+                            console.log(user)
+                            return (
+                                <div>
+                                    <li><a href="#"><i className="material-icons">person</i>{user}</a></li>
+                                    <li><div className="divider"></div></li>
+                                </div>
+                            )
+                        })
+                    }
+
                 </ul>
                 <div id="chat" className="row container">
                     <div id="chatbox" className="col s12 m8">
@@ -58,10 +85,10 @@ class Chat extends React.Component {
                             <h4>ChatRoom</h4>
                             <div id="chatout">
                                 <div id="output">
-                                    <ul class="collection">
+                                    <ul className="collection">
                                         {
-                                            this.state.chat.map((msg) => {
-                                                return(<li class="collection-item transparent"><h6>{this.props.user}</h6>{msg}</li>)
+                                            this.state.chat.map((chatIn) => {
+                                                return (<li className="collection-item transparent"><h6>{chatIn.user}</h6>{chatIn.msg}</li>)
                                             })
                                         }
                                     </ul>
