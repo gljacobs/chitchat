@@ -1,7 +1,40 @@
 import React from 'react';
+import io from 'socket.io-client';
 import './style.css';
 
+var socket;
+if(window.location.pathname === "/chat") {
+  socket = io('http://localhost:3001/chat', { transports: ['websocket'] });
+}
+
+
 class Chat extends React.Component {
+    state = {
+        msg: "",
+        chat: []
+    }
+
+    handleChange = (event) => {
+        let value = event.target.value;
+        const name = event.target.name;
+
+        this.setState({ [name]: value })
+    }
+
+    handleChat = (event) => {
+        event.preventDefault();
+        if (this.state.msg) {
+            // socket.emit("chat", {
+            //     msg: this.state.msg,
+            //     user: this.props.user,
+            // });
+            this.setState({
+                chat: [this.state.msg, ...this.state.chat],
+                msg: ""
+            })
+        }
+    }
+
     render() {
         return (
             <div id="chat-page">
@@ -26,10 +59,11 @@ class Chat extends React.Component {
                             <div id="chatout">
                                 <div id="output">
                                     <ul class="collection">
-                                        <li class="collection-item transparent"><h6>Ed</h6> hehehe</li>
-                                        <li class="collection-item transparent"><h6>Bob</h6> okay then</li>
-                                        <li class="collection-item transparent"><h6>Ed</h6> I am good yayayayaaayayayaaya</li>
-                                        <li class="collection-item transparent"><h6>Bob</h6> Hello how are you?</li>
+                                        {
+                                            this.state.chat.map((msg) => {
+                                                return(<li class="collection-item transparent"><h6>{this.props.user}</h6>{msg}</li>)
+                                            })
+                                        }
                                     </ul>
                                 </div>
                                 <div id="feedback"></div>
@@ -37,10 +71,10 @@ class Chat extends React.Component {
                             <form id="chatin">
                                 <div className="input-field col m10">
                                     <i className="material-icons prefix">chat_bubble_outline</i>
-                                    <textarea id="chatarea" className="materialize-textarea"></textarea>
-                                    <label for="chatarea">Enter message to chat..</label>
+                                    <input id="chatarea" type="text" className="validate" name="msg" value={this.state.msg} onChange={this.handleChange}></input>
+                                    <label htmlFor="chatarea">Enter message to chat..</label>
                                 </div>
-                                <button id="chatbtn" className="btn waves-effect waves-light col m2" type="submit" name="action">Send
+                                <button id="chatbtn" className="btn waves-effect waves-light col m2" type="submit" name="action" onClick={this.handleChat}>Send
                                         <i className="material-icons right">send</i>
                                 </button>
                             </form>

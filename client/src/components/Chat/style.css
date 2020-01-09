@@ -78,6 +78,19 @@ ul#nav-mobile {
     z-index: -1;
 }
 
+.input-field.col.m10 {
+    margin-bottom: 0;
+}
+
+.input-field input {
+    border-bottom: 1px solid white !important;
+    color: white;
+}
+  
+.input-field label {
+    color: white;
+}
+
 @media screen and (max-width: 992px) {
     div#chat {
         margin-left: 0;

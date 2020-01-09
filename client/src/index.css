@@ -56,18 +56,6 @@ body {
   box-shadow: 0 1px 0 0 #4094ff !important;
 }
 
-.input-field textarea {
-  border-bottom: 1px solid white !important;
-  color: white;
-}
-
-.input-field label {
-  color: white;
-}
-
-
-
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

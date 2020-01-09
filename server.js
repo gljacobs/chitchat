@@ -50,13 +50,13 @@ db.sequelize.sync().then(() => {
       console.log("Socket disconnnected");
     });
     //handle chat
-    // socket.on("chat", (data) => {
-    //     io.sockets.emit("chat", data)
-    // });
-    // //handle typing
-    // socket.on("typing", (data) => {
-    //     socket.broadcast.emit("typing", data)
-    // });
+    socket.on("chat", (data) => {
+        io.sockets.emit("chat", data)
+    });
+    //handle typing
+    socket.on("typing", (data) => {
+        socket.broadcast.emit("typing", data)
+    });
   })
 })
 
