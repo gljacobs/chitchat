@@ -107,4 +107,9 @@ ul#nav-mobile {
     #chatin {
         width: 100vw;
     }
+
+    div#chatbox {
+        width: 100%;
+        padding: 0;
+    }
 }

@@ -63,8 +63,9 @@ class Chat extends React.Component {
                         </div>
                         <a href="#"></a>
                         <a href="#"><span className="white-text name">John Doe</span></a>
-                        <a href="#"><span className="white-text email">jdandturk@gmail.com</span></a>
                     </div></li>
+                    Who's Online..
+                    <li><div className="divider"></div></li>
                     {
                         this.state.users.map((user) => {
                             console.log(user)
@@ -76,7 +77,6 @@ class Chat extends React.Component {
                             )
                         })
                     }
-
                 </ul>
                 <div id="chat" className="row container">
                     <div id="chatbox" className="col s12 m8">
@@ -94,8 +94,8 @@ class Chat extends React.Component {
                                 </div>
                                 <div id="feedback"></div>
                             </div>
-                            <form id="chatin">
-                                <div className="input-field col m10">
+                            <form id="chatin" autocomplete="off">
+                                <div className="input-field col m10 s8">
                                     <i className="material-icons prefix">chat_bubble_outline</i>
                                     <input id="chatarea" type="text" className="validate" name="msg" value={this.state.msg} onChange={this.handleChange}></input>
                                     <label htmlFor="chatarea">Enter message to chat..</label>

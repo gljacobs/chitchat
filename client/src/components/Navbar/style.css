@@ -7,6 +7,7 @@
 nav p {
     float: right;
     color: #FFAB40;
+    padding-right: 5px;
 }
 
 nav img {
