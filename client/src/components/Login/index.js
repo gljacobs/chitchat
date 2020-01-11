@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.css';
-// import testdata from '../../testdata.json'
 import API from '../../utils/API';
 
 
@@ -21,7 +20,7 @@ class Login extends React.Component {
         event.preventDefault();
         API.getUser(this.state.email, this.state.password)
             .then((user) => {
-                this.props.getUser(user[0].name);
+                this.props.getUser(user[0].name, user[0].email);
                 window.location.href = "/chat";
             }).catch(err => {
                 console.log(err)

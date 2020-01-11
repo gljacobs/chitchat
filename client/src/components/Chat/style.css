@@ -9,7 +9,6 @@ div#chat {
     height: 100%;
     margin-bottom: 0;
     color: white;
-    overflow-x: hidden;
 }
 
 div#chatbox {
@@ -104,7 +103,7 @@ ul#nav-mobile {
         margin-left: 0;
     }
 
-    #chatin {
+    div#chatin {
         width: 100vw;
     }
 

@@ -46,6 +46,19 @@ module.exports = {
                 });
         });
     },
+    update: function (req, res) {
+        console.log(`Updating user ${req.body.email}`);
+        db.Users.update({            
+            online: req.body.online,
+        },
+        {
+            where: {
+                email: req.body.email,
+            },
+            returning: true, 
+            plain: true
+        })
+    },
     remove: function (req, res) {
         console.log(`Removing user ${req.params.email}`)
         db.Users.destroy({

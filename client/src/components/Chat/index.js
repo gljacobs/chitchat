@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import './style.css';
+import API from '../../utils/API';
 
 var socket;
 
@@ -10,11 +11,11 @@ class Chat extends React.Component {
         msg: "",
         chat: [],
         users: [],
-        logged: false
+        email: "",
+        logged: false,
     }
 
     componentDidMount() {
-
         socket = io('http://localhost:3001');
 
         socket.on("chat", (data) => {
@@ -24,18 +25,22 @@ class Chat extends React.Component {
     }
 
     componentDidUpdate() {
-
         if(!this.state.logged) {
             socket.emit("logged", {
                 user: this.props.user,
+                email: this.props.email,
             });
 
             socket.on("logged", (data) => {
-                this.setState({ users: [...this.state.users, data.user], logged: true })
+                this.setState({ users: [...this.state.users, data.user], logged: true , email: data.email});
+                API.logUser(data.email, true)
+                    .catch(err => {
+                        console.log(err)
+                    })
             })
         }
     }
-
+    
     handleChange = (event) => {
         let value = event.target.value;
         const name = event.target.name;
@@ -68,7 +73,6 @@ class Chat extends React.Component {
                     <li><div className="divider"></div></li>
                     {
                         this.state.users.map((user) => {
-                            console.log(user)
                             return (
                                 <div>
                                     <li><a href="#"><i className="material-icons">person</i>{user}</a></li>

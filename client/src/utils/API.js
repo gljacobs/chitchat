@@ -17,4 +17,7 @@ export default {
     getUsers: function () {
         return axios.get("/api/users").then(result => result.data)
     },
+    logUser: function(email, online) {
+        return axios.put("/api/users" , { email: email, online: online }).then(result => result.data)
+    }
 }

@@ -17,7 +17,12 @@ module.exports= function(sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING(255),
             allowNull: false,
-        }
+        },
+        online: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
     });
 
     return Users;
