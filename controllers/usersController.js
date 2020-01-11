@@ -25,7 +25,11 @@ module.exports = {
     },
     findAll: function (req, res) {
         console.log("Getting all users")
-        db.Users.findAll().then(function (users) {
+        db.Users.findAll({
+            where: {
+                online: true,
+            },
+         }).then(function (users) {
             res.json(users)
         });
     },

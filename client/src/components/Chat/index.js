@@ -2,12 +2,14 @@ import React from 'react';
 import io from 'socket.io-client';
 import './style.css';
 import API from '../../utils/API';
+import { useHistory } from 'react-router-dom';
 
 var socket;
 
 class Chat extends React.Component {
 
     state = {
+        user: "",
         msg: "",
         chat: [],
         users: [],
@@ -16,6 +18,17 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
+        
+        var arr = [];
+         API.getUsers().then((users) => {
+             users.map((user) => {
+                arr.push(user.name)
+             })
+         })
+         console.log("test1", arr);
+
+         this.setState({users: arr});
+
         socket = io('http://localhost:3001');
 
         socket.on("chat", (data) => {
@@ -25,6 +38,7 @@ class Chat extends React.Component {
     }
 
     componentDidUpdate() {
+
         if(!this.state.logged) {
             socket.emit("logged", {
                 user: this.props.user,
@@ -32,15 +46,22 @@ class Chat extends React.Component {
             });
 
             socket.on("logged", (data) => {
-                this.setState({ users: [...this.state.users, data.user], logged: true , email: data.email});
+                this.setState({ 
+                    user: data.user, 
+                    users: [data.user,...this.state.users.filter(user => {
+                        return user !== data.user})], 
+                    logged: true, 
+                    email: data.email
+                });
                 API.logUser(data.email, true)
                     .catch(err => {
                         console.log(err)
                     })
             })
+            console.log("test2", this.state.logged,this.state.users);
         }
     }
-    
+
     handleChange = (event) => {
         let value = event.target.value;
         const name = event.target.name;
@@ -98,7 +119,7 @@ class Chat extends React.Component {
                                 </div>
                                 <div id="feedback"></div>
                             </div>
-                            <form id="chatin" autocomplete="off">
+                            <form id="chatin" autoComplete="off">
                                 <div className="input-field col m10 s8">
                                     <i className="material-icons prefix">chat_bubble_outline</i>
                                     <input id="chatarea" type="text" className="validate" name="msg" value={this.state.msg} onChange={this.handleChange}></input>
