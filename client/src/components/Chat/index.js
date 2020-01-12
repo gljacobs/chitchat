@@ -18,16 +18,14 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-        
         var arr = [];
-         API.getUsers().then((users) => {
-             users.map((user) => {
+        API.getUsers().then((users) => {
+            users.map((user) => {
                 arr.push(user.name)
-             })
-         })
-         console.log("test1", arr);
+            })
+        })
 
-         this.setState({users: arr});
+        this.setState({ users: arr });
 
         socket = io('http://localhost:3001');
 
@@ -35,22 +33,30 @@ class Chat extends React.Component {
             this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat], msg: "" });
             //feedback.html("");
         });
+
+        socket.on("logout", (data) => {
+            this.setState({
+                users: this.state.users.filter(user => {
+                    return user !== data.user
+                })
+            })
+        })
     }
 
     componentDidUpdate() {
-
-        if(!this.state.logged) {
-            socket.emit("logged", {
+        if (!this.state.logged) {
+            socket.emit("login", {
                 user: this.props.user,
                 email: this.props.email,
             });
 
-            socket.on("logged", (data) => {
-                this.setState({ 
-                    user: data.user, 
-                    users: [data.user,...this.state.users.filter(user => {
-                        return user !== data.user})], 
-                    logged: true, 
+            socket.on("login", (data) => {
+                this.setState({
+                    user: data.user,
+                    users: [data.user, ...this.state.users.filter(user => {
+                        return user !== data.user
+                    })],
+                    logged: true,
                     email: data.email
                 });
                 API.logUser(data.email, true)
@@ -58,8 +64,13 @@ class Chat extends React.Component {
                         console.log(err)
                     })
             })
-            console.log("test2", this.state.logged,this.state.users);
         }
+    }
+
+    handleLogout = () => {
+        socket.emit("logout", {
+            user: this.state.user,
+        });
     }
 
     handleChange = (event) => {
@@ -77,7 +88,6 @@ class Chat extends React.Component {
                 user: this.props.user,
             });
         }
-
     }
 
     render() {

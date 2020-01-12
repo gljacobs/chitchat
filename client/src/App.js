@@ -14,9 +14,7 @@ if (window.location.pathname !== "/chat") {
     .catch(err => {
       console.log(err)
     })
-    .then(() => {
-      localStorage.clear();
-    })
+    localStorage.clear();
 }
 
 class App extends React.Component {

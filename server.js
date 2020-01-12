@@ -55,9 +55,14 @@ db.sequelize.sync().then(() => {
         io.sockets.emit("chat", data)
     });
 
-    socket.on("logged", (data) => {
+    socket.on("login", (data) => {
       console.log("User logged in.. ", data.user);
-        io.sockets.emit("logged", data)
+        io.sockets.emit("login", data)
+    });
+
+    socket.on("logout", (data) => {
+      console.log("User logged out.. ", data.user);
+        io.sockets.emit("logout", data)
     });
 
     //handle typing
