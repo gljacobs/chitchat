@@ -37,6 +37,7 @@ class Chat extends React.Component {
         this.setState({ users: userArr, chat: chatArr });
 
         socket = io();
+        // socket = io('http://localhost:3001');
 
         socket.on("chat", (data) => {
             this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat], msg: "" });
