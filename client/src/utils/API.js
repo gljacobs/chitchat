@@ -18,6 +18,13 @@ export default {
         return axios.get("/api/users").then(result => result.data)
     },
     logUser: function(email, online) {
-        return axios.put("/api/users" , { email: email, online: online }).then(result => result.data)
-    }
+        return axios.put("/api/users/user", { email: email, online: online }).then(result => result.data)
+    },
+    createChat: function (name, message) {
+        return axios.post("/api/chat", { name: name, message: message });
+    },
+    // Get users from the database
+    getChat: function () {
+        return axios.get("/api/chat").then(result => result.data)
+    },
 }

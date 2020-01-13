@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Users = sequelize.define("Users", {
+    var Chat = sequelize.define("Chat", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -9,21 +9,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        password: {
+        message: {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        online: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false,
-        },
     });
 
-    return Users;
+    return Chat;
 }

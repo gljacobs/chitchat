@@ -2,7 +2,6 @@ import React from 'react';
 import io from 'socket.io-client';
 import './style.css';
 import API from '../../utils/API';
-import { useHistory } from 'react-router-dom';
 
 var socket;
 
@@ -18,14 +17,24 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-        var arr = [];
+        var userArr = [];
         API.getUsers().then((users) => {
             users.map((user) => {
-                arr.push(user.name)
+                userArr.push(user.name)
             })
         })
 
-        this.setState({ users: arr });
+        var chatArr = [];
+        API.getChat().then((users) => {
+            users.map((user) => {
+                chatArr.unshift({ 
+                    user: user.name, 
+                    msg: user.message,
+                })
+            })
+        })        
+        
+        this.setState({ users: userArr, chat: chatArr });
 
         socket = io('http://localhost:3001');
 
@@ -33,13 +42,26 @@ class Chat extends React.Component {
             this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat], msg: "" });
             //feedback.html("");
         });
-
         socket.on("logout", (data) => {
             this.setState({
                 users: this.state.users.filter(user => {
                     return user !== data.user
                 })
             })
+        })
+        socket.on("login", (data) => {
+            this.setState({
+                user: data.user,
+                users: [data.user, ...this.state.users.filter(user => {
+                    return user !== data.user
+                })],
+                logged: true,
+                email: data.email
+            });
+            API.logUser(data.email, true)
+                .catch(err => {
+                    console.log(err)
+                })
         })
     }
 
@@ -49,21 +71,6 @@ class Chat extends React.Component {
                 user: this.props.user,
                 email: this.props.email,
             });
-
-            socket.on("login", (data) => {
-                this.setState({
-                    user: data.user,
-                    users: [data.user, ...this.state.users.filter(user => {
-                        return user !== data.user
-                    })],
-                    logged: true,
-                    email: data.email
-                });
-                API.logUser(data.email, true)
-                    .catch(err => {
-                        console.log(err)
-                    })
-            })
         }
     }
 
@@ -83,10 +90,17 @@ class Chat extends React.Component {
     handleChat = (event) => {
         event.preventDefault();
         if (this.state.msg) {
-            socket.emit("chat", {
-                msg: this.state.msg,
-                user: this.props.user,
-            });
+            API.createChat(this.state.user, this.state.msg)
+                .catch(err => {
+                    console.log(err)
+                })
+                .then(() => {
+                    socket.emit("chat", {
+                        msg: this.state.msg,
+                        user: this.state.user,
+                    });
+                });
+
         }
     }
 
