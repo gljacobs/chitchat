@@ -22,25 +22,29 @@ class Chat extends React.Component {
             users.map((user) => {
                 userArr.push(user.name)
             })
-        })        
+        })
 
         var chatArr = [];
         API.getChat().then((users) => {
             users.map((user) => {
-                chatArr.unshift({ 
-                    user: user.name, 
+                chatArr.unshift({
+                    user: user.name,
                     msg: user.message,
                 })
             })
-        })        
-        
+        })
+
         this.setState({ users: userArr, chat: chatArr });
 
         socket = io();
         // socket = io('http://localhost:3001');
 
         socket.on("chat", (data) => {
-            this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat], msg: "" });
+            this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat] });
+            API.createChat(data.user, data.msg)
+                .catch(err => {
+                    console.log(err)
+                })
             //feedback.html("");
         });
         socket.on("logout", (data) => {
@@ -51,7 +55,7 @@ class Chat extends React.Component {
             })
         })
         socket.on("login", (data) => {
-            
+
             this.setState({
                 user: this.props.user,
                 users: [this.props.user, ...this.state.users.filter(user => {
@@ -92,17 +96,12 @@ class Chat extends React.Component {
     handleChat = (event) => {
         event.preventDefault();
         if (this.state.msg) {
-            API.createChat(this.state.user, this.state.msg)
-                .catch(err => {
-                    console.log(err)
-                })
-                .then(() => {
-                    socket.emit("chat", {
-                        msg: this.state.msg,
-                        user: this.state.user,
-                    });
-                });
+            socket.emit("chat", {
+                msg: this.state.msg,
+                user: this.state.user,
+            });
 
+            this.setState({ msg: "" });
         }
     }
 
