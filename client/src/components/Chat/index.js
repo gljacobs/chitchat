@@ -41,10 +41,6 @@ class Chat extends React.Component {
 
         socket.on("chat", (data) => {
             this.setState({ chat: [{ user: data.user, msg: data.msg }, ...this.state.chat] });
-            API.createChat(data.user, data.msg)
-                .catch(err => {
-                    console.log(err)
-                })
             //feedback.html("");
         });
         socket.on("logout", (data) => {
@@ -100,7 +96,10 @@ class Chat extends React.Component {
                 msg: this.state.msg,
                 user: this.state.user,
             });
-
+            API.createChat(this.state.user, this.state.msg)
+                .catch(err => {
+                    console.log(err)
+                })
             this.setState({ msg: "" });
         }
     }
