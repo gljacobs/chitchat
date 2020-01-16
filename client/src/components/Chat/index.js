@@ -22,9 +22,7 @@ class Chat extends React.Component {
             users.map((user) => {
                 userArr.push(user.name)
             })
-        })
-        console.log(users);
-        
+        })        
 
         var chatArr = [];
         API.getChat().then((users) => {
