@@ -1,17 +1,12 @@
 import React from 'react';
 import './style.css';
-// import testdata from '../../testdata.json'
 import API from '../../utils/API';
+
 
 class Login extends React.Component {
     state = {
-        user: "",
         email: "",
         password: "",
-    }
-    componentDidMount() {
-        // API.createUser("Gabe Jaco", "gj@gmail.com", "password");
-        // API.createUser("Mariah Jaco", "mj@gmail.com", "password");
     }
 
     handleChange = (event) => {
@@ -25,8 +20,8 @@ class Login extends React.Component {
         event.preventDefault();
         API.getUser(this.state.email, this.state.password)
             .then((user) => {
-                console.log(user);
-                alert("Hello " + user[0].name + "!");
+                this.props.getUser(user[0].name, user[0].email);
+                window.location.href = "/chat";
             }).catch(err => {
                 console.log(err)
                 alert("Invalid email or password...")
@@ -42,12 +37,12 @@ class Login extends React.Component {
                 <div className="col s12 m12">
                     <div className="card">
                         <div className="card-content">
-                            <span className="card-title activator grey-text text-darken-4">Login Here</span>
+                            <span className="card-title activator">Login Here</span>
                             <div className="row">
                                 <form id="login" className="col s12 ">
                                     <div className="row">
                                         <div className="input-field col s8 offset-s2">
-                                            <input id="namein" type="text" className="validate" name="email" value={this.state.email} onChange={this.handleChange} />
+                                            <input id="namein" type="email" className="validate" name="email" value={this.state.email} onChange={this.handleChange} />
                                             <label htmlFor="namein">Email</label>
                                         </div>
                                     </div>

@@ -25,7 +25,11 @@ module.exports = {
     },
     findAll: function (req, res) {
         console.log("Getting all users")
-        db.Users.findAll().then(function (users) {
+        db.Users.findAll({
+            where: {
+                online: true,
+            },
+         }).then(function (users) {
             res.json(users)
         });
     },
@@ -45,6 +49,19 @@ module.exports = {
                     res.sendStatus(400)
                 });
         });
+    },
+    update: function (req, res) {
+        console.log(`Updating user ${req.body.email}`);
+        db.Users.update({            
+            online: req.body.online,
+        },
+        {
+            where: {
+                email: req.body.email,
+            },
+            returning: true, 
+            plain: true
+        })
     },
     remove: function (req, res) {
         console.log(`Removing user ${req.params.email}`)

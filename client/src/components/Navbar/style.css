@@ -1,19 +1,24 @@
 #navbar {
     position: fixed;
-    background: white;
     z-index: 1;
+    background-color: #1f1f1f;
 }
 
-p {
+nav p {
     float: right;
-    color: gray;
-    padding: 0 1rem;
+    color: #FFAB40;
+    padding-right: 5px;
 }
 
+nav img {
+    height: 2.5rem;
+    position: absolute;
+    top: 13px;
+}
 nav a {
     padding: 0 1rem;
     font-weight: bold;
-    color: gray;
-    font-size: 2rem;
+    color: #FFAB40;
+    font-size: 2.5rem;
 }
 

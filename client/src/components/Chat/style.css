@@ -1,0 +1,114 @@
+div#chat-page {
+    height: 100%;
+}
+div#chat {
+    margin-left: 300px;
+    margin-top: 56px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    color: white;
+}
+
+div#chatbox {
+    width: 90vw;
+    height: 100%;
+}
+div#chat-content {
+    height: 100%;
+}
+
+#chatout {
+    height: 65vh;
+    margin-left: -0.75rem;
+}
+
+
+#chat h4{
+    font-weight: bold;
+    background-color: #4094ff;
+    margin-left: -0.75rem;
+    padding-left: 2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#chatout li, #chat ul {
+    border: none;
+}
+
+#chatout ul {
+    overflow: scroll;
+    height: 65vh;
+    max-height: 65vh;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#chatout li {
+    border-bottom: 1px solid white;
+}
+
+#chatout ul li:first-child {
+    border: none;
+}
+
+#chatout h6 {
+    color: #FFAB40;
+    font-weight: bold;
+}
+#chatbtn {
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    width: 97px;
+}
+
+#chatin {
+    width: 77vw;
+    position: absolute;
+    bottom: 10%;
+    border-top: 1px solid white;
+}
+
+ul#nav-mobile {
+    z-index: 0;
+}
+
+.input-field.col.m10 {
+    margin-bottom: 0;
+}
+
+#chat .input-field input {
+    border-bottom: 1px solid white !important;
+    color: white;
+}
+  
+#chat .input-field label {
+    color: white;
+}
+
+.sidenav i.material-icons {
+    color: lawngreen !important;
+}
+
+.sidenav li a {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 992px) {
+    div#chat {
+        margin-left: 0;
+    }
+
+    div#chatin {
+        width: 100vw;
+    }
+
+    div#chatbox {
+        width: 100%;
+        padding: 0;
+    }
+}

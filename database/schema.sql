@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS ezlogin_db;
-CREATE DATABASE ezlogin_db;
+DROP DATABASE IF EXISTS chat_db;
+CREATE DATABASE chat_db;
 
-USE ezlogin_db;
+USE chat_db;
