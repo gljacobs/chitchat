@@ -8,7 +8,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Chat from './components/Chat';
 
-if (window.location.pathname !== "/chat") {
+if (window.location.pathname !== "/chat" && localStorage.getItem("email")) {
   API.logUser(localStorage.getItem("email"), false)
     .catch(err => {
       console.log(err)
