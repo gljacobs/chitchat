@@ -18,24 +18,25 @@ class Chat extends React.Component {
 
     componentDidMount() {
         var userArr = [];
-        var chatArr = [];
-
         API.getUsers().then((users) => {
             users.map((user) => {
                 userArr.push(user.name)
             })
-        }).then(() => {
-            API.getChat().then((users) => {
-                users.map((user) => {
-                    chatArr.unshift({
-                        user: user.name,
-                        msg: user.message,
-                    })
+        })
+        console.log(users);
+        
+
+        var chatArr = [];
+        API.getChat().then((users) => {
+            users.map((user) => {
+                chatArr.unshift({ 
+                    user: user.name, 
+                    msg: user.message,
                 })
             })
-        }).then(() => {
-            this.setState({ users: userArr, chat: chatArr });
-        })
+        })        
+        
+        this.setState({ users: userArr, chat: chatArr });
 
         socket = io();
         // socket = io('http://localhost:3001');
@@ -52,7 +53,7 @@ class Chat extends React.Component {
             })
         })
         socket.on("login", (data) => {
-
+            
             this.setState({
                 user: this.props.user,
                 users: [this.props.user, ...this.state.users.filter(user => {
