@@ -23,6 +23,8 @@ class Chat extends React.Component {
                 userArr.push(user.name)
             })
         })
+        console.log(userArr);
+        
 
         var chatArr = [];
         API.getChat().then((users) => {
@@ -51,6 +53,7 @@ class Chat extends React.Component {
             })
         })
         socket.on("login", (data) => {
+            
             this.setState({
                 user: this.props.user,
                 users: [this.props.user, ...this.state.users.filter(user => {
