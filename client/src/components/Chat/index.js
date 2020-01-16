@@ -52,12 +52,12 @@ class Chat extends React.Component {
         })
         socket.on("login", (data) => {
             this.setState({
-                user: data.user,
-                users: [data.user, ...this.state.users.filter(user => {
-                    return user !== data.user
+                user: this.props.user,
+                users: [this.props.user, ...this.state.users.filter(user => {
+                    return user !== this.props.user
                 })],
                 logged: true,
-                email: data.email
+                email: this.props.email
             });
             API.logUser(data.email, true)
                 .catch(err => {
