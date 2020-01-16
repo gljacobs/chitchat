@@ -1,6 +1,7 @@
 div#chat-page {
     height: 100%;
 }
+
 div#chat {
     margin-left: 300px;
     margin-top: 56px;
@@ -24,7 +25,6 @@ div#chat-content {
     margin-left: -0.75rem;
 }
 
-
 #chat h4{
     font-weight: bold;
     background-color: #4094ff;
@@ -41,7 +41,7 @@ div#chat-content {
 }
 
 #chatout ul {
-    overflow: scroll;
+    overflow: scroll !important;
     height: 65vh;
     max-height: 65vh;
     display: flex;
@@ -103,12 +103,20 @@ ul#nav-mobile {
         margin-left: 0;
     }
 
-    div#chatin {
-        width: 100vw;
+    form#chatin {
+        width: 100vw !important;
     }
 
     div#chatbox {
         width: 100%;
         padding: 0;
+    }
+
+    #chat .input-field input {
+        width: 100vw;
+    }
+
+    #chatbtn {
+        display: none;
     }
 }

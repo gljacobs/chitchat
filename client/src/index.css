@@ -1,4 +1,6 @@
-html, #root, .App {height:100%}
+html, #root, .App {
+  height:100%;
+}
 
 body {
   margin: 0;
