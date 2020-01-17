@@ -91,17 +91,15 @@ class Chat extends React.Component {
     handleChat = (event) => {
         event.preventDefault();
         if (this.state.msg) {
+            socket.emit("chat", {
+                msg: this.state.msg,
+                user: this.state.user,
+            });
             API.createChat(this.state.user, this.state.msg)
                 .catch(err => {
                     console.log(err)
                 })
-                .then(() => {
-                    socket.emit("chat", {
-                        msg: this.state.msg,
-                        user: this.state.user,
-                    });
-                });
-
+            this.setState({ msg: "" });
         }
     }
 
