@@ -120,4 +120,12 @@ ul#nav-mobile {
         width: 100%;
         padding: 0;
     }
+
+    #chat .input-field input {
+        width: 100vw;
+    }
+
+    #chatbtn {
+        display: none;
+    }
 }
