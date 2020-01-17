@@ -9,9 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
-var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
