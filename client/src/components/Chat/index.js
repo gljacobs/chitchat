@@ -129,7 +129,7 @@ class Chat extends React.Component {
                 <div id="chat" className="row container">
                     <div id="chatbox" className="col s12 m8">
                         <div id="chat-content">
-                            <h4>ChatRoom</h4>
+                            <h4>General Chat</h4>
                             <div id="chatout">
                                 <div id="output">
                                     <ul className="collection">
