@@ -1,0 +1,19 @@
+#logcard {
+    text-align: center;
+    width: 45vw;
+}
+
+.card {
+    margin-top: 17.5vh !important;
+}
+
+@media screen and (max-width: 950px) {
+    #logcard {
+        width: 90vw;
+    }
+}
+
+.card .card-content .card-title {
+    font-weight: bold;
+    color: #FFAB40;
+}
