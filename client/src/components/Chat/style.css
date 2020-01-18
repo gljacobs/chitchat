@@ -41,7 +41,7 @@ div#chat-content {
 }
 
 #chatout ul {
-    overflow: scroll !important;
+    overflow-y: scroll;
     height: 65vh;
     max-height: 65vh;
     display: flex;
