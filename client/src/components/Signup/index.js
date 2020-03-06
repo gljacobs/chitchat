@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import { Link } from 'react-router-dom';
 // import testdata from '../../testdata.json'
 import API from '../../utils/API';
 
@@ -54,7 +55,7 @@ class Signup extends React.Component {
                             })
                             .then(() => {
                                 this.setState({ firstName: "", lastName: "", email: "", password: "", passwordCheck: "" });
-                                window.location.href = "/";
+                                this.props.history.push("/");;
                             })
                     }
                 })
@@ -103,7 +104,7 @@ class Signup extends React.Component {
                                         </button>
                                     </div>
                                     <div className="card-action">
-                                        <a href="/">Return to Login</a>
+                                        <Link to="/">Return to Login</Link>
                                     </div>
                                 </form>
                             </div>

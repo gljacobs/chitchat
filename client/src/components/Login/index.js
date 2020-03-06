@@ -1,12 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.css';
 import API from '../../utils/API';
 
-
 class Login extends React.Component {
+
     state = {
         email: "",
         password: "",
+    }
+
+    componentDidMount() {
+        localStorage.clear();
     }
 
     handleChange = (event) => {
@@ -20,15 +25,17 @@ class Login extends React.Component {
         event.preventDefault();
         API.getUser(this.state.email, this.state.password)
             .then((user) => {
-                this.props.getUser(user[0].name, user[0].email);
-                window.location.href = "/chat";
-            }).catch(err => {
-                console.log(err)
-                alert("Invalid email or password...")
+                this.props.getUser(user[0].name, user[0].email)
             })
             .then(() => {
-                this.setState({ email: "", password: "" });
-            });
+                this.props.history.push("/chat");
+            })
+            .catch(err => {
+                console.log(err)
+                alert("Invalid email or password...");
+                this.setState({ password: "" })
+            })
+            
     }
 
     render() {
@@ -37,7 +44,7 @@ class Login extends React.Component {
                 <div className="col s12 m12">
                     <div className="card">
                         <div className="card-content">
-                            <span className="card-title activator">Login Here</span>
+                            <span className="card-title">Login Here</span>
                             <div className="row">
                                 <form id="login" className="col s12 ">
                                     <div className="row">
@@ -60,7 +67,7 @@ class Login extends React.Component {
                                 </form>
                             </div>
                             <div className="card-action">
-                                <a href="/signup">Don't have an account? Sign up here</a>
+                                <Link to="/signup">Don't have an account? Sign up here</Link>
                             </div>
                         </div>
                     </div>
