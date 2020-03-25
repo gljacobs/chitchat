@@ -11,7 +11,7 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        localStorage.clear();
+        sessionStorage.clear();
     }
 
     handleChange = (event) => {

@@ -16,18 +16,18 @@ class App extends React.Component {
 
     componentDidMount() {
         this.setState({
-            user: localStorage.getItem("user"),
-            email: localStorage.getItem("email")
+            user: sessionStorage.getItem("user"),
+            email: sessionStorage.getItem("email")
         });
     }
 
     logout() {
-        if (localStorage.getItem("email")) {
-            API.logUser(localStorage.getItem("email"), false)
+        if (sessionStorage.getItem("email")) {
+            API.logUser(sessionStorage.getItem("email"), false)
                 .catch(err => {
                     console.log(err)
                 })
-            localStorage.clear();
+            sessionStorage.clear();
         }
     }
 
@@ -38,8 +38,8 @@ class App extends React.Component {
                     <Navbar user={this.state.user} logout={this.logout}/>
                     <Route path="/" render={props => <Login {...props}
                         getUser={(user, email) => {
-                            localStorage.setItem('user', user);
-                            localStorage.setItem('email', email);
+                            sessionStorage.setItem('user', user);
+                            sessionStorage.setItem('email', email);
                             this.setState({
                                 user: user,
                                 email: email,
