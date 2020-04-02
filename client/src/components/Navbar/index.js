@@ -7,10 +7,11 @@ function Navbar(props) {
     return (
         <nav id="navbar">
             <div className="nav-wrapper">
-                <Link to="/" onClick={props.logout}>ChitChat
+                <Link id="logo"to="/" onClick={props.logout}>ChitChat
                     <img src={cat}/>
                 </Link>
-                <p>{props.user ? `Welcome ${props.user}` : "No user is currently logged in"}</p>
+                <p>{props.user ? `Welcome ${props.user}` : "No user is currently logged in..."}</p>
+                <Link id="logout" to="/" onClick={props.logout}>{props.user ? "Logout" : ""}</Link>
             </div>
         </nav>
     );

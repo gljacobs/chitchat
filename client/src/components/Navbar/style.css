@@ -7,7 +7,7 @@
 nav p {
     float: right;
     color: #FFAB40;
-    padding-right: 5px;
+    padding-right: 90px;
 }
 
 nav img {
@@ -15,10 +15,21 @@ nav img {
     position: absolute;
     top: 13px;
 }
-nav a {
+
+nav #logo {
     padding: 0 1rem;
     font-weight: bold;
     color: #FFAB40;
     font-size: 2.5rem;
 }
+
+nav #logout {
+    position: absolute;
+    right: 0;
+    width: 75px;
+    background: #FFAB40;
+    text-align: center;
+}
+
+
 

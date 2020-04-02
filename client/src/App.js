@@ -21,13 +21,18 @@ class App extends React.Component {
         });
     }
 
-    logout() {
+    logout = () => {
         if (sessionStorage.getItem("email")) {
             API.logUser(sessionStorage.getItem("email"), false)
                 .catch(err => {
                     console.log(err)
                 })
             sessionStorage.clear();
+
+            this.setState({
+                user: "",
+                email: "",
+            });
         }
     }
 
