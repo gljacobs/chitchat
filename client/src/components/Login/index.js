@@ -8,6 +8,7 @@ class Login extends React.Component {
     state = {
         email: "",
         password: "",
+        loading: false,
     }
 
     componentDidMount() {
@@ -23,19 +24,23 @@ class Login extends React.Component {
 
     handleLogin = (event) => {
         event.preventDefault();
-        API.getUser(this.state.email, this.state.password)
-            .then((user) => {
-                this.props.getUser(user[0].name, user[0].email)
-            })
-            .then(() => {
-                this.props.history.push("/chat");
-            })
-            .catch(err => {
-                console.log(err)
-                alert("Invalid email or password...");
-                this.setState({ password: "" })
-            })
-            
+        if (this.state.email && this.state.password) {
+            console.log("hi");
+            this.setState({ loading: true, })
+            API.getUser(this.state.email, this.state.password)
+                .then((user) => {
+                    this.props.getUser(user[0].name, user[0].email)
+                })
+                .then(() => {
+                    this.props.history.push("/chat");
+                })
+                .catch(err => {
+                    console.log(err)
+                    alert("Invalid email or password...");
+                    this.setState({ password: "", loading: false, })
+                    console.log("hello");
+                })
+        }
     }
 
     render() {
@@ -49,20 +54,35 @@ class Login extends React.Component {
                                 <form id="login" className="col s12 ">
                                     <div className="row">
                                         <div className="input-field col s8 offset-s2">
-                                            <input id="namein" type="email" className="validate" name="email" value={this.state.email} onChange={this.handleChange} />
-                                            <label htmlFor="namein">Email</label>
+                                            <input id="email" type="email" className="validate" name="email" value={this.state.email} onChange={this.handleChange} required />
+                                            <label htmlFor="email">Email</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s8 offset-s2">
-                                            <input id="password" type="password" className="validate" name="password" value={this.state.password} onChange={this.handleChange} />
+                                            <input id="password" type="password" className="validate" name="password" value={this.state.password} onChange={this.handleChange} required />
                                             <label htmlFor="password">Password</label>
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <button className="btn waves-effect waves-light col s4 offset-s4" type="submit" name="action" onClick={this.handleLogin}>Login
-                                        <i className="material-icons right">send</i>
-                                        </button>
+                                        {
+                                            !this.state.loading ?
+                                                <button className="btn waves-effect waves-light col s4 offset-s4" type="submit" name="action" onClick={this.handleLogin}>Login
+                                                    <i className="material-icons right">send</i>
+                                                </button>
+                                                :
+                                                <div class="preloader-wrapper small active">
+                                                    <div class="spinner-layer spinner-blue-only">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div><div class="gap-patch">
+                                                            <div class="circle"></div>
+                                                        </div><div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        }
                                     </div>
                                 </form>
                             </div>
