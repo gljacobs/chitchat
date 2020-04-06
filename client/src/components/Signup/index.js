@@ -12,6 +12,7 @@ class Signup extends React.Component {
         lastName: "",
         password: "",
         passwordCheck: "",
+        loading: false,
     }
     componentDidMount() {
         // API.createUser("Gabe Jaco", "gj@gmail.com", "password");
@@ -29,7 +30,7 @@ class Signup extends React.Component {
         if (this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
             event.preventDefault();
             let valid = true;
-
+            this.setState({ loading: true, })
             API.getUsers()
                 .then(users =>
                     users.map((user) => {
@@ -39,7 +40,8 @@ class Signup extends React.Component {
                         }
                     })
                 ).catch(err => {
-                    console.log(err)
+                    console.log(err);
+                    this.setState({ loading: false, })
                 }
                 )
                 .then(() => {
@@ -68,7 +70,7 @@ class Signup extends React.Component {
                 <div className="col s12 m12">
                     <div className="card">
                         <div className="card-content">
-                            <span className="card-title activator">Sign Up Here</span>
+                            <span className="card-title">Sign Up Here</span>
                             <div className="row">
                                 <form id="signup" className="col s12 ">
                                     <div className="row">
@@ -99,9 +101,24 @@ class Signup extends React.Component {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <button className="btn waves-effect waves-light col s4 offset-s4" type="submit" name="action" onClick={this.handleLogin}>Signup
-                                        <i className="material-icons right">send</i>
-                                        </button>
+                                        {
+                                            !this.state.loading ?
+                                                <button className="btn waves-effect waves-light col s4 offset-s4" type="submit" name="action" onClick={this.handleLogin}>Signup
+                                                    <i className="material-icons right">send</i>
+                                                </button>
+                                                :
+                                                <div class="preloader-wrapper small active">
+                                                    <div class="spinner-layer spinner-blue-only">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div><div class="gap-patch">
+                                                            <div class="circle"></div>
+                                                        </div><div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        }
                                     </div>
                                     <div className="card-action">
                                         <Link to="/">Return to Login</Link>
