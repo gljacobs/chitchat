@@ -7,6 +7,7 @@ module.exports = {
         var found;
 
         db.Users.findAll({
+            limit: 1,
             where: {
                 email: req.body.email,
             }
@@ -19,9 +20,11 @@ module.exports = {
                 return res.json(found);
             }
             else {
-                return res.json("");
+                return res.json({ message: err.message });
             }
-        })
+        }).catch (err => {
+            return res.json({ message: err.message });
+        });
     },
     findAll: function (req, res) {
         console.log("Getting all users")
