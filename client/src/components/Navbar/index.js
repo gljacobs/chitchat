@@ -10,8 +10,8 @@ function Navbar(props) {
                 <Link id="logo"to="/" onClick={props.logout}>ChitChat
                     <img src={cat}/>
                 </Link>
-                <p>{props.user ? `Welcome ${props.user}` : "No user is currently logged in..."}</p>
-                <Link id="logout" to="/" onClick={props.logout}>{props.user ? "Logout" : ""}</Link>
+                <p><Link id="logout" to="/" style={props.user ? {} : {visibility: "hidden"}} onClick={props.logout}>Logout</Link></p>
+                <p >{props.user ? `Welcome ${props.user}` : "No user is currently logged in..."}</p>
             </div>
         </nav>
     );
