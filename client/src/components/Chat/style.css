@@ -117,6 +117,8 @@ ul#nav-mobile {
     }
 
     #chatbtn {
-        display: none;
+        width: 20px;
+        float: right;
+        padding-right: 50px;
     }
 }
